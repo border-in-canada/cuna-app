@@ -9,7 +9,7 @@ const input = (props) => {
             inputElement = <Input 
             type={props.type}
             placeholder={props.placeholder}
-            required={props.required} 
+            validation={{...props.validation}} 
             value={props.value}
             onChange={props.changed}/>;
             break;
