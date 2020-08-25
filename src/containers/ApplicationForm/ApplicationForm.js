@@ -8,14 +8,55 @@ class ApplicationForm extends Component {
         purchasePrice: {
             elementType: 'input',
             type: 'text',
-            placeholder: 'Purchase Price',
+            placeholder: 'Auto Purchase Price',
             validation: {
                required: true,
-               number: true,
-               minLength: 4
+               number: true
+            }
+        },
+        make: {
+            elementType: 'input',
+            type: 'text',
+            placeholder: 'Auto Make',
+            validation: {
+               required: true,
+               number: false
+            }
+        },
+        model: {
+            elementType: 'input',
+            type: 'text',
+            placeholder: 'Auto Model',
+            validation: {
+               required: true,
+               number: false
+            }
+        },
+        income: {
+            elementType: 'input',
+            type: 'text',
+            placeholder: 'Estimated Yearly Income',
+            validation: {
+               required: true,
+               number: true
+            },
+            value: ''
+        },
+        creditScore: {
+            elementType: 'input',
+            type: 'text',
+            placeholder: 'Estimated Credit Score',
+            validation: {
+                customRules: [{
+                    evaluation: value => value >= 300 && value <= 850,
+                    message: 'Value must be from 300-850'
+                }],
+               required: true,
+               number: true
             }
         }
     }
+
     render(){
         const formElementsArray = [];
         for (let key in this.state) {

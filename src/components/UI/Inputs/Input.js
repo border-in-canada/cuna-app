@@ -10,6 +10,7 @@ const input = (props) => {
             type={props.type}
             placeholder={props.placeholder}
             validation={{...props.validation}} 
+            elementConfig={{...props.elementConfig}}
             value={props.value}
             onChange={props.changed}/>;
             break;
