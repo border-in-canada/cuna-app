@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import styles from './ApplicationForm.module.css';
 import { Form, Input } from 'react-formalized';
 import mockFetch from '../../mock/mock';
+import Marketing from '../../components/Marketing/Marketing';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-class ApplicationForm extends Component {
+export class ApplicationForm extends Component {
     state = {
         badRequest: false,
         formIsValid: false,
@@ -70,6 +71,7 @@ class ApplicationForm extends Component {
 
     onSubmitHandler = (event, formState) => {
         event.preventDefault();
+        console.log(JSON.stringify(formState));
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -121,6 +123,7 @@ class ApplicationForm extends Component {
                 { this.state.badRequest ? 
                 <p style={{color: 'red'}}>Bad Request. Purchase price out of range. Please reload the page and try again.</p> :
             null }
+                <Marketing />
             </div>
         );
     }
