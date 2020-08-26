@@ -6,17 +6,17 @@ const initialState = {
 };
 
 const appApproved = (state, action) => {
-    return (state, {
-        message: action.message,
-        approved: action.qualified
-    })
+    return {...state, 
+        message: action.response.message,
+        approved: action.response.qualified
+    }
 };
 
 const appDeclined = (state, action) => {
-    return (state, {
-        message: action.message,
-        approved: action.qualified
-    })
+    return {...state, 
+        message: action.response.message,
+        approved: action.response.qualified
+    }
 };
 
 const reducer = (state = initialState, action) => {
