@@ -75,7 +75,6 @@ class ApplicationForm extends Component {
         }
         mockFetch('http://myapi.com/', requestOptions)
             .then(res => {
-                console.log('then has been triggered');
                 console.log(res);
             })
             .catch(err => {

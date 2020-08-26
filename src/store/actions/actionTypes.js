@@ -1,0 +1,2 @@
+export const APP_APPROVED = 'APP_APPROVED';
+export const APP_DECLINED = 'APP_DECLINED';
