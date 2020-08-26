@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Developer Instructions:
+
+Use git clone to clone repository to local machine, and as always, run npm install to install dependencies.
 
 ## Available Scripts
 
