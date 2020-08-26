@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styles from './ApplicationForm.module.css';
 import { Form, Input } from 'react-formalized';
 import mockFetch from '../../mock/mock';
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
 
 class ApplicationForm extends Component {
     state = {
@@ -75,7 +77,7 @@ class ApplicationForm extends Component {
         }
         mockFetch('http://myapi.com/', requestOptions)
             .then(res => {
-                console.log(res);
+                this.props.applicationSubmit(res, this.props.history);
             })
             .catch(err => {
                 console.log(err);
@@ -124,4 +126,10 @@ class ApplicationForm extends Component {
     }
 }
 
-export default ApplicationForm;
+const mapDispatchToProps = dispatch => {
+    return {
+        applicationSubmit: (response, history) => dispatch(actions.responseAction(response, history))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ApplicationForm);
