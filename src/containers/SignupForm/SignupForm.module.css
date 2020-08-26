@@ -1,0 +1,9 @@
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FormContainer Form {
+    width: 40%;
+}
