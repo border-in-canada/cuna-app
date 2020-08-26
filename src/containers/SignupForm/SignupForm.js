@@ -14,6 +14,7 @@ class SignupForm extends Component {
                 validation: {
                    required: true
                 },
+                value: ''
             },
             password: {
                 elementType: 'input',
@@ -22,35 +23,45 @@ class SignupForm extends Component {
                 placeholder: 'Password',
                 validation: {
                     customRules: [{
-                        evaluation: value => value.length > 8,
-                        message: 'Password must be at least 9 characters long'
+                        evaluation: value => value.length > 8 && new RegExp(/^(?=.*[0-9])|(?=.*[!@#\\$%\\^&\\*])/).test(value),
+                        message: 'Must be 9 or more characters, with a number or special character'
                     }],
                    required: true 
-                }
+                },
+                value: ''
             },
             confirmPw: {
                 elementType: 'input',
                 type: 'password',
-                identifier: 'confirm',
+                identifier: 'confirmPw',
                 placeholder: 'Confirm Password',
                 validation: {
                     customRules: [{
-                        evaluation: value => value,
+                        evaluation: value => this.passwordValidation(value),
                         message: 'Passwords must match'
                     }],
                    required: true 
-                }
+                },
+                value: ''
             }
         }
     }
 
+    passwordValidation = (value) => {
+        return value === this.state.signupForm.password.value;
+    }
+
     onChangeHandler = (formState) => {
-        this.setState({formIsValid: formState.isValid});
+        const updatedForm = {...this.state.signupForm};
+        const updatedFormElement = {...updatedForm.password};
+        updatedFormElement.value = formState.password.value;
+        updatedForm.password = updatedFormElement;
+        this.setState({formIsValid: formState.isValid, signupForm: updatedForm});
     }
 
     onSubmitHandler = (event, formState) => {
         event.preventDefault();
-        window.alert(JSON.stringify(formState, null, 3));
+        this.props.history.push('/');
     }
 
 
@@ -75,6 +86,7 @@ class SignupForm extends Component {
                     identifier={formElement.config.identifier}
                     placeholder={formElement.config.placeholder}
                     validation={formElement.config.validation}
+                    value={formElement.config.value}
                     />            
                 ))}
                 {this.state.formIsValid ? <button type='submit'>Submit</button> :
