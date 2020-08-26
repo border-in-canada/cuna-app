@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styles from './ApplicationForm.module.css';
 import { Form, Input } from 'react-formalized';
+import mockFetch from '../../mock/mock';
 
 class ApplicationForm extends Component {
     state = {
+        badRequest: false,
         formIsValid: false,
         orderForm: {
             purchasePrice: {
@@ -66,7 +68,20 @@ class ApplicationForm extends Component {
 
     onSubmitHandler = (event, formState) => {
         event.preventDefault();
-        window.alert(JSON.stringify(formState, null, 3));
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: formState
+        }
+        mockFetch('http://myapi.com/', requestOptions)
+            .then(res => {
+                console.log('then has been triggered');
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({badRequest: true});
+            })
     }
 
 
@@ -102,6 +117,9 @@ class ApplicationForm extends Component {
             <div className={styles.FormContainer}>
                 <h1>Auto Application</h1>
                 {form}
+                { this.state.badRequest ? 
+                <p style={{color: 'red'}}>Bad Request. Purchase price out of range. Please reload the page and try again.</p> :
+            null }
             </div>
         );
     }
